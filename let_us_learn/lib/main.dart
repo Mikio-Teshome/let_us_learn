@@ -6,8 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(new MaterialApp(
-    theme: ThemeData.dark().copyWith(
-      primaryColor: Color(0xFF736746),
+    theme: ThemeData.light().copyWith(
+      primaryColor: Color(0xFF0B6DCF),
       scaffoldBackgroundColor: Color(0xFFffffff),
     ),
     home: new SplashScreen(),
@@ -16,24 +16,6 @@ void main() {
   ));
 }
 
-// class Starter extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       theme: ThemeData.dark().copyWith(
-//         primaryColor: Color(0xFF736746),
-//         scaffoldBackgroundColor: Color(0xFFffffff),
-//       ),
-//       // routes: {
-//       //   '/': (context) => SplashScreen(),
-//       //   // ResultPage.routeName: (context) => ResultPage(),
-//       // },
-//       home: new SplashScreen(),
-//       initialRoute: '/',
-//       onGenerateRoute: RouteGenerator.generateRoute,
-//     );
-//   }
-// }
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => new _SplashScreenState();
@@ -52,12 +34,12 @@ class _SplashScreenState extends State<SplashScreen> {
     setState(() {
       final bool signedin = (prefs.getBool("SignedIn"));
       if (signedin == null) {
-        Navigator.of(context).pushNamed(
+        Navigator.of(context).pushReplacementNamed(
           '/second',
           arguments: "flase",
         );
       } else {
-        Navigator.of(context).pushNamed(
+        Navigator.of(context).pushReplacementNamed(
           '/second',
           arguments: signedin.toString(),
         );
@@ -75,7 +57,27 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return new Scaffold(
       body: new Center(
-        child: new Image.asset('images/art.png'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              "images/logo.png",
+              width: MediaQuery.of(context).size.width * 1,
+              height: MediaQuery.of(context).size.height * 0.3,
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Text(
+              "Let's Learn",
+              style: TextStyle(
+                color: Color(0xFF0B6DCF),
+                fontFamily: 'PoppinsSemiBold',
+                fontSize: 32,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

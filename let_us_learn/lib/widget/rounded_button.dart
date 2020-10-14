@@ -19,7 +19,7 @@ class RoundedButton extends StatelessWidget {
       decoration: ShapeDecoration(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         gradient: LinearGradient(
-          colors: [Color(0xff7A6F4D), Color(0xff4B3D1F)],
+          colors: [Color(0xff0B6DCF), Color(0xff003BA1)],
         ),
       ),
       child: RawMaterialButton(
@@ -28,7 +28,8 @@ class RoundedButton extends StatelessWidget {
         },
         child: Text(
           lable,
-          style: TextStyle(fontFamily: 'Montserrat', fontSize: 30),
+          style: TextStyle(
+              fontFamily: 'PoppinsMedium', fontSize: 26, color: Colors.white),
         ),
         elevation: 6.0,
         constraints: BoxConstraints.tightFor(

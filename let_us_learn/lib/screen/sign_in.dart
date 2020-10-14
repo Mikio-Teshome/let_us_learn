@@ -53,12 +53,19 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-  Future<void> store({String FullName, String Phone, String Id}) async {
+  Future<void> store(
+      {String FullName,
+      String Phone,
+      String Id,
+      String Sex,
+      String Email}) async {
     final SharedPreferences prefs = await _prefs;
     // final int counter = (prefs.getInt('counter') ?? 0) + 1;
     prefs.setString("FullName", FullName);
     prefs.setString("Phone", Phone);
     prefs.setString("Id", Id);
+    prefs.setString("sex", Sex);
+    prefs.setString("email", Email);
     prefs.setBool("SignedIn", true);
   }
 
@@ -85,20 +92,22 @@ class _SignInState extends State<SignIn> {
               height: MediaQuery.of(context).size.height * 0.2,
             ),
             SizedBox(
-              height: 60.0,
+              height: 40.0,
             ),
-            SizedBox(
-              width: double.infinity,
-              child: Padding(
-                padding: EdgeInsets.only(left: 15),
-                child: Text(
-                  'SignIn',
-                  style: TextStyle(
-                    color: Color(0xFF736746),
-                    fontFamily: 'Montserrat',
-                    fontSize: 32,
-                  ),
-                ),
+            Text(
+              "Welcome Back",
+              style: TextStyle(
+                fontFamily: 'PoppinsBold',
+                fontSize: 24.0,
+                color: Color(0xFF0B6DCF),
+              ),
+            ),
+            Text(
+              "LogIn to Continue",
+              style: TextStyle(
+                fontFamily: 'ExtraLight',
+                fontSize: 16.0,
+                color: Color(0xFF7698B9),
               ),
             ),
             SizedBox(
@@ -111,7 +120,8 @@ class _SignInState extends State<SignIn> {
                 child: Column(
                   children: [
                     RoundedTextWidget(
-                      hint: "Phone",
+                      hint: "Email/Phone",
+                      PrefixIcon: Icons.perm_identity,
                       isPass: false,
                       obscure: false,
                       controller: phone,
@@ -122,6 +132,8 @@ class _SignInState extends State<SignIn> {
                     ),
                     RoundedTextWidget(
                       hint: "Password",
+                      PrefixIcon: Icons.lock,
+                      multiline: false,
                       isPass: true,
                       controller: password,
                       obscure: !obscuree,
@@ -144,42 +156,71 @@ class _SignInState extends State<SignIn> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 5.0,
             ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: EdgeInsets.only(right: 15),
-                child: RoundedButton(
-                  lable: "SignIn",
-                  width: 135,
-                  height: 50,
-                  onClick: () async {
-                    if (validator()) {
-                      var url = 'http://192.168.137.1/afroel/v1/signIn.php';
-                      showAlertDialog(context);
-                      var Response = await http.post(url, body: {
-                        'phone': phone.text,
-                        'password': password.text
-                      });
-                      Navigator.pop(context);
-                      if (Response.statusCode == 200) {
-                        var response = convert.jsonDecode(Response.body);
-
-                        store(
-                            FullName:
-                                response['f_name'] + " " + response['l_name'],
-                            Phone: response['phone_no'],
-                            Id: response['id']);
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeView()));
-                      }
-                    }
+            SizedBox(
+              height: 40.0,
+            ),
+            RoundedButton(
+              lable: "LOGIN",
+              width: 340,
+              height: 60,
+              onClick: () async {
+                if (validator()) {
+                  var url = 'https://learn.maledamotivation.com/learn/v1/signIn.php';
+                  showAlertDialog(context);
+                  var Response = await http.post(url,
+                      body: {'phone': phone.text, 'password': password.text});
+                  Navigator.pop(context);
+                  if (Response.statusCode == 200) {
+                    var response = convert.jsonDecode(Response.body);
+                    print('Response body: ${response}');
+                    if (response['error'] == false) {
+                      store(
+                          FullName: response['name'],
+                          Phone: response['phone_no'],
+                          Id: response['id'],
+                          Email: response['email'],
+                          Sex: response['sex']);
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => HomeView()));
+                    } else {}
+                  }
+                }
+              },
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Don't have account?",
+                  style: TextStyle(
+                    fontFamily: 'PoppinsRegular',
+                    fontSize: 15.0,
+                    color: Color(0xFF474747),
+                  ),
+                ),
+                GestureDetector(
+                  child: Text(
+                    "create a new account",
+                    style: TextStyle(
+                      fontFamily: 'PoppinsRegular',
+                      fontSize: 15.0,
+                      color: Color(0xFF0B6DCF),
+                    ),
+                  ),
+                  onTap: () {
+                    setState(() {
+                      Navigator.of(context).pushNamed(
+                        '/signUp',
+                      );
+                    });
                   },
                 ),
-              ),
+              ],
             )
           ],
         ),

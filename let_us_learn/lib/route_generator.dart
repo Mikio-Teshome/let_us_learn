@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:let_us_learn/main.dart';
 import 'package:let_us_learn/screen/home_view.dart';
+import 'package:let_us_learn/screen/pdf_view.dart';
+import 'package:let_us_learn/screen/signUp.dart';
 import 'package:let_us_learn/screen/sign_in.dart';
 
 class RouteGenerator {
@@ -22,9 +24,18 @@ class RouteGenerator {
             builder: (_) => SignIn(),
           );
         }
-        // If args is not of the correct type, return an error page.
-        // You can also throw an exception while in development.
-        return _errorRoute();
+        break;
+      // If args is not of the correct type, return an error page.
+      // You can also throw an exception while in development.
+      case '/signUp':
+        return MaterialPageRoute(
+          builder: (_) => SignUp(),
+        );
+      case '/signIn':
+        return MaterialPageRoute(
+          builder: (_) => SignIn(),
+        );
+
       default:
         // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute();

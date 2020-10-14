@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "595330619645",
+    "firebase_url": "https://learn-9490f.firebaseio.com",
+    "project_id": "learn-9490f",
+    "storage_bucket": "learn-9490f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595330619645:android:1fcb48192894b1e34dc694",
+        "android_client_info": {
+          "package_name": "com.ethiopiaHacks.let_us_learn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595330619645-ug4djjnerhrge4k2g1kgvqm8n2fjodoo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ethiopiaHacks.let_us_learn",
+            "certificate_hash": "4307d047a6fbdadfb1e2dfb2be7713a240abb3f6"
+          }
+        },
+        {
+          "client_id": "595330619645-i7bt9etvtj9t243b5fpvkelh97dfv0rh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkMs2scIc62i7afP3sIdH7x5CgK1qPzqA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "595330619645-i7bt9etvtj9t243b5fpvkelh97dfv0rh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
